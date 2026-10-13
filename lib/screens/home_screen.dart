@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/home_header.dart';
 import '../widgets/search_box.dart';
+import '../data/destinations.dart';
+import '../widgets/hero_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -16,6 +18,8 @@ class HomeScreen extends StatelessWidget {
             const HomeHeader(prenom: 'Ahmed'),
             const SizedBox(height: 20),
             const SearchBox(),
+            const SizedBox(height: 20),
+            HeroBanner(destination: destinations.first),
           ],
         ),
       ),
