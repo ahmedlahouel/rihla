@@ -1,17 +1,13 @@
-# rihla
+# Rihla
 
-A new Flutter project.
+Application de voyage en Tunisie, TP 3 : Widgets & layouts (Flutter).
 
-## Getting Started
+Ahmed Lahouel DSI33
 
-This project is a starting point for a Flutter application.
+## Questions de compréhension
 
-A few resources to get you started if this is your first Flutter project:
+### Palier 2
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Sans Expanded, l’avatar se place juste après le texte, à gauche. Expanded prend l’espace restant et pousse l’avatar à droite.
+2. prenom est déclaré final parce qu’on ne peut pas changer sa valeur après sa création.
+3. cs.primary change selon la seedColor, alors que Colors.teal reste toujours la même couleur.
