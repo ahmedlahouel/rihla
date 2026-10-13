@@ -17,3 +17,8 @@ Ahmed Lahouel DSI33
 1. On ne voit plus le dégradé, car l’image passe devant lui. Dans un Stack, le dernier élément se place devant les autres.
 2. Sans ClipRRect, les coins de la bannière deviennent carrés au lieu d’être arrondis.
 3. right: 130 laisse de la place à droite pour le bouton « Découvrir », pour que le texte ne passe pas dessous.
+
+### Palier 4
+
+1. Expanded donne une largeur limitée à la Column. Comme ça, Spacer peut prendre l’espace libre et pousser le prix à droite.
+2. Il suffit d’ajouter une destination dans lib/data/destinations.dart et son image dans assets/images/. La boucle affiche automatiquement la nouvelle destination.
