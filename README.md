@@ -22,3 +22,9 @@ Ahmed Lahouel DSI33
 
 1. Expanded donne une largeur limitée à la Column. Comme ça, Spacer peut prendre l’espace libre et pousser le prix à droite.
 2. Il suffit d’ajouter une destination dans lib/data/destinations.dart et son image dans assets/images/. La boucle affiche automatiquement la nouvelle destination.
+
+### Palier 5
+
+1. \_categorie change en mémoire, mais l’écran ne change pas, car sans setState, Flutter ne met pas l’interface à jour.
+2. \_filtrees est recalculé à chaque build() pour afficher les destinations selon la catégorie choisie. Une variable risque de garder l’ancienne liste.
+3. HeroBanner reste un StatelessWidget parce qu’il ne change pas avec le filtre. Seul HomeScreen gère les changements.
