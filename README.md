@@ -28,3 +28,8 @@ Ahmed Lahouel DSI33
 1. \_categorie change en mémoire, mais l’écran ne change pas, car sans setState, Flutter ne met pas l’interface à jour.
 2. \_filtrees est recalculé à chaque build() pour afficher les destinations selon la catégorie choisie. Une variable risque de garder l’ancienne liste.
 3. HeroBanner reste un StatelessWidget parce qu’il ne change pas avec le filtre. Seul HomeScreen gère les changements.
+
+### Palier 6
+
+1. Sans clé, Flutter garde l’état selon la position de la carte. Après filtrage, le cœur peut se retrouver sur une autre destination ou le favori peut être perdu.
+2. Avec key: ValueKey(d.nom), Flutter reconnaît chaque destination par son nom. Le cœur reste donc sur la bonne carte après le filtrage.
