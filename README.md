@@ -41,3 +41,9 @@ Ahmed Lahouel DSI33
 1. Oui, le filtre est conservé. Quand on ouvre le détail, HomeScreen reste en mémoire. En revenant, on retrouve donc le même filtre.
 2. DetailScreen reçoit la destination avec son constructeur (DetailScreen(destination: destination)). C'est le même principe que pour les autres widgets avec les paramètres final. On accède à la destination avec widget.destination.
 3. Sans clipBehavior, l'effet d'animation au toucher dépasse des coins arrondis de la carte. Avec Clip.antiAlias, l'effet reste dans les limites de la carte.
+
+### Palier 3
+
+1. \_formKey.currentState!.validate() vérifie tous les champs du formulaire. Elle renvoie true si tout est correct et false s'il y a une erreur. Les messages d'erreur s'affichent sous les champs concernés.
+2. inputFormatters empêche de saisir des caractères interdits et limite le nombre de chiffres. validator vérifie les données quand on clique sur Confirmer et affiche les erreurs.
+3. dispose() permet de libérer les contrôleurs quand on quitte l'écran pour éviter de garder des ressources inutiles en mémoire.

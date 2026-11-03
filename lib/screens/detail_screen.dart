@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/destination.dart';
 import '../widgets/favorite_button.dart';
+import 'reservation_screen.dart';
 
 class DetailScreen extends StatefulWidget {
   final Destination destination;
@@ -282,7 +283,20 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
               ),
-              FilledButton(onPressed: () {}, child: const Text('Réserver')),
+              FilledButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReservationScreen(
+                        destination: d,
+                        voyageurs: _voyageurs,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text('Réserver'),
+              ),
             ],
           ),
         ),
