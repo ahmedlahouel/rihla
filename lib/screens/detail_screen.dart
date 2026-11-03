@@ -92,7 +92,8 @@ class _DetailScreenState extends State<DetailScreen> {
                       left: 16,
                       child: _boutonRond(
                         IconButton(
-                          onPressed: () => Navigator.maybePop(context),
+                          tooltip: 'Retour',
+                          onPressed: () => Navigator.pop(context),
                           icon: const Icon(Icons.arrow_back),
                         ),
                       ),

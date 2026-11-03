@@ -33,3 +33,11 @@ Ahmed Lahouel DSI33
 
 1. Sans clé, Flutter garde l’état selon la position de la carte. Après filtrage, le cœur peut se retrouver sur une autre destination ou le favori peut être perdu.
 2. Avec key: ValueKey(d.nom), Flutter reconnaît chaque destination par son nom. Le cœur reste donc sur la bonne carte après le filtrage.
+
+## TP 4
+
+### Palier 2
+
+1. Oui, le filtre est conservé. Quand on ouvre le détail, HomeScreen reste en mémoire. En revenant, on retrouve donc le même filtre.
+2. DetailScreen reçoit la destination avec son constructeur (DetailScreen(destination: destination)). C'est le même principe que pour les autres widgets avec les paramètres final. On accède à la destination avec widget.destination.
+3. Sans clipBehavior, l'effet d'animation au toucher dépasse des coins arrondis de la carte. Avec Clip.antiAlias, l'effet reste dans les limites de la carte.
