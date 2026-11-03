@@ -52,3 +52,9 @@ Ahmed Lahouel DSI33
 
 1. readOnly: true empêche l'utilisateur d'écrire directement dans le champ. Il doit choisir la date dans le calendrier. Sans ça, il pourrait saisir une date incorrecte.
 2. \_total est recalculé automatiquement à chaque appel selon la formule choisie. Avec setState, l'écran se met à jour et affiche le nouveau prix sans avoir besoin de modifier \_total manuellement.
+
+### Palier 5
+
+1. reservation vaut null si l'utilisateur quitte le formulaire sans confirmer. Aucune réservation n'est renvoyée.
+2. VS Code affiche l'avertissement « Don't use BuildContext's across async gaps ». Cela signifie qu'on ne doit pas utiliser context après un await sans vérifier que le widget existe encore. mounted permet de faire cette vérification.
+3. Une boîte de dialogue fonctionne comme un écran. Elle s'ouvre au-dessus de l'écran actuel et se ferme avec Navigator.pop.
