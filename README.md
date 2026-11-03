@@ -47,3 +47,8 @@ Ahmed Lahouel DSI33
 1. \_formKey.currentState!.validate() vérifie tous les champs du formulaire. Elle renvoie true si tout est correct et false s'il y a une erreur. Les messages d'erreur s'affichent sous les champs concernés.
 2. inputFormatters empêche de saisir des caractères interdits et limite le nombre de chiffres. validator vérifie les données quand on clique sur Confirmer et affiche les erreurs.
 3. dispose() permet de libérer les contrôleurs quand on quitte l'écran pour éviter de garder des ressources inutiles en mémoire.
+
+### Palier 4
+
+1. readOnly: true empêche l'utilisateur d'écrire directement dans le champ. Il doit choisir la date dans le calendrier. Sans ça, il pourrait saisir une date incorrecte.
+2. \_total est recalculé automatiquement à chaque appel selon la formule choisie. Avec setState, l'écran se met à jour et affiche le nouveau prix sans avoir besoin de modifier \_total manuellement.
