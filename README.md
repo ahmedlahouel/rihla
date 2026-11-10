@@ -64,7 +64,5 @@ Ahmed Lahouel DSI33
 ### Palier 0
 
 - /destinations/99 : La destination n'existe pas, donc le serveur renvoie une erreur 404. Les codes 2xx indiquent un succès, les 4xx une erreur côté client et les 5xx une erreur côté serveur.
-
 - Who chose the reservation id? C'est le serveur qui a généré l'ID automatiquement, car on n'a pas envoyé d'ID dans le body. C'est pour ça que Reservation.id peut être null.
-
 - Why does GET have no body? GET sert à récupérer des données, donc l'URL suffit. POST sert à envoyer des données, comme une nouvelle réservation, donc il a besoin d'un body.
