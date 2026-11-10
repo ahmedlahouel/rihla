@@ -58,3 +58,13 @@ Ahmed Lahouel DSI33
 1. reservation vaut null si l'utilisateur quitte le formulaire sans confirmer. Aucune réservation n'est renvoyée.
 2. VS Code affiche l'avertissement « Don't use BuildContext's across async gaps ». Cela signifie qu'on ne doit pas utiliser context après un await sans vérifier que le widget existe encore. mounted permet de faire cette vérification.
 3. Une boîte de dialogue fonctionne comme un écran. Elle s'ouvre au-dessus de l'écran actuel et se ferme avec Navigator.pop.
+
+## TP 5
+
+### Palier 0
+
+- /destinations/99 : La destination n'existe pas, donc le serveur renvoie une erreur 404. Les codes 2xx indiquent un succès, les 4xx une erreur côté client et les 5xx une erreur côté serveur.
+
+- Who chose the reservation id? C'est le serveur qui a généré l'ID automatiquement, car on n'a pas envoyé d'ID dans le body. C'est pour ça que Reservation.id peut être null.
+
+- Why does GET have no body? GET sert à récupérer des données, donc l'URL suffit. POST sert à envoyer des données, comme une nouvelle réservation, donc il a besoin d'un body.
