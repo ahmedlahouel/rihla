@@ -78,3 +78,9 @@ Ahmed Lahouel DSI33
 - Pourquoi late ? \_futurDestinations reçoit sa valeur dans initState. late indique qu'elle sera initialisée avant d'être utilisée.
 - Sans snapshot.hasError, si le serveur est arrêté ? snapshot.data peut être null et snapshot.data! provoque une erreur. L'application affiche alors un écran d'erreur au lieu d'un message clair.
 - Est-ce que changer de catégorie fait une nouvelle requête ? Non. setState reconstruit l'écran, mais le Future reste le même. L'application filtre simplement les données déjà chargées.
+
+### Palier 4
+
+- Pourquoi destinationId et pas toute la destination ? Le serveur possède déjà les informations de la destination. On envoie seulement son ID pour éviter de répéter les données et garder une requête plus simple. Au Palier 5, \_embed permet de récupérer les informations de la destination.
+- Sans le header Content-Type ? Le serveur ne sait pas que les données envoyées sont en JSON. Il risque donc de ne pas les lire correctement, ce qui peut provoquer une erreur ou un enregistrement vide.
+- Pourquoi vérifier mounted après le await ? Parce que l'utilisateur peut quitter l'écran pendant la requête. mounted vérifie que l'écran existe encore avant d'utiliser context pour afficher un SnackBar ou une boîte de dialogue.
