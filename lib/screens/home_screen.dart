@@ -7,6 +7,7 @@ import '../widgets/hero_banner.dart';
 import '../widgets/destination_card.dart';
 import '../widgets/section_title.dart';
 import '../models/destination.dart';
+import '../services/api_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,12 +20,21 @@ class _HomeScreenState extends State<HomeScreen> {
   String _categorie = 'Tout';
   int _onglet = 0;
 
-  List<Destination> get _filtrees {
-    if (_categorie == 'Tout') return destinations;
-    return destinations.where((d) => d.categorie == _categorie).toList();
+  late Future<List<Destination>> _futurDestinations;
+
+  @override
+  void initState() {
+    super.initState();
+    _futurDestinations = ApiService.getDestinations();
   }
 
-  Widget _construireAccueil() {
+  List<Destination> _filtrer(List<Destination> toutes) {
+    if (_categorie == 'Tout') return toutes;
+    return toutes.where((d) => d.categorie == _categorie).toList();
+  }
+
+  Widget _construireAccueil(List<Destination> destinations) {
+    final filtrees = _filtrer(destinations);
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
@@ -59,10 +69,43 @@ class _HomeScreenState extends State<HomeScreen> {
         const SizedBox(height: 24),
         const SectionTitle(titre: 'Populaires', action: 'Voir tout'),
         const SizedBox(height: 12),
-        for (final d in _filtrees)
-          DestinationCard(key: ValueKey(d.nom), destination: d),
+        for (final d in filtrees)
+          DestinationCard(key: ValueKey(d.id), destination: d),
       ],
     );
+  }
+
+  Widget _construireExplorer() {
+    return FutureBuilder<List<Destination>>(
+      future: _futurDestinations,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting &&
+            !snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasError) {
+          return ErreurReseau(
+            message: snapshot.error.toString(),
+            onReessayer: _recharger,
+          );
+        }
+        final destinations = snapshot.data!;
+        return RefreshIndicator(
+          onRefresh: _recharger,
+          child: _construireAccueil(destinations),
+        );
+      },
+    );
+  }
+
+  Future<void> _recharger() async {
+    final futur = ApiService.getDestinations();
+    setState(() {
+      _futurDestinations = futur;
+    });
+    try {
+      await futur;
+    } catch (_) {}
   }
 
   @override
@@ -70,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: _onglet == 0
-            ? _construireAccueil()
+            ? _construireExplorer()
             : const Center(child: Text('Bientôt disponible')),
       ),
       bottomNavigationBar: NavigationBar(
@@ -97,6 +140,49 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Profil',
           ),
         ],
+      ),
+    );
+  }
+}
+
+class ErreurReseau extends StatelessWidget {
+  final String message;
+  final VoidCallback onReessayer;
+
+  const ErreurReseau({
+    super.key,
+    required this.message,
+    required this.onReessayer,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.cloud_off,
+              size: 64,
+              color: Theme.of(context).colorScheme.error,
+            ),
+            const SizedBox(height: 16),
+            Text(message, textAlign: TextAlign.center),
+            const SizedBox(height: 8),
+            const Text(
+              'Vérifiez que json-server est lancé.',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            FilledButton.tonalIcon(
+              onPressed: onReessayer,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Réessayer'),
+            ),
+          ],
+        ),
       ),
     );
   }

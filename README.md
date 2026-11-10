@@ -63,6 +63,18 @@ Ahmed Lahouel DSI33
 
 ### Palier 0
 
-- /destinations/99 : La destination n'existe pas, donc le serveur renvoie une erreur 404. Les codes 2xx indiquent un succès, les 4xx une erreur côté client et les 5xx une erreur côté serveur.
-- Who chose the reservation id? C'est le serveur qui a généré l'ID automatiquement, car on n'a pas envoyé d'ID dans le body. C'est pour ça que Reservation.id peut être null.
-- Why does GET have no body? GET sert à récupérer des données, donc l'URL suffit. POST sert à envoyer des données, comme une nouvelle réservation, donc il a besoin d'un body.
+- /destinations/99 : La destination n'existe pas, donc le serveur renvoie une erreur 404. Les codes 2xx indiquent un succès, les 4xx une erreur client et les 5xx une erreur serveur.
+- Qui a choisi l'ID de la réservation ? C'est le serveur qui a généré l'ID automatiquement, car on n'a pas envoyé d'ID dans le body. C'est pour ça que Reservation.id peut être null.
+- Pourquoi GET n'a pas de body ? GET sert à récupérer des données, donc l'URL suffit. POST sert à envoyer des données, comme une nouvelle réservation, donc il a besoin d'un body.
+
+### Palier 2
+
+- Pourquoi factory ? factory permet de faire des conversions avant de créer l'objet. Ici, on transforme un Map en objet avec des champs de types précis.
+- Et si "prix": "420" ? "420" est un String et non un int. Donc as int provoque une erreur. FutureBuilder affiche alors l'état d'erreur. Dart ne fait pas la conversion automatiquement.
+
+### Palier 3
+
+- Pourquoi !snapshot.hasData ? Pendant le rafraîchissement, les anciennes données restent affichées au lieu de montrer le chargement. Le spinner apparaît seulement au premier chargement.
+- Pourquoi late ? \_futurDestinations reçoit sa valeur dans initState. late indique qu'elle sera initialisée avant d'être utilisée.
+- Sans snapshot.hasError, si le serveur est arrêté ? snapshot.data peut être null et snapshot.data! provoque une erreur. L'application affiche alors un écran d'erreur au lieu d'un message clair.
+- Est-ce que changer de catégorie fait une nouvelle requête ? Non. setState reconstruit l'écran, mais le Future reste le même. L'application filtre simplement les données déjà chargées.
