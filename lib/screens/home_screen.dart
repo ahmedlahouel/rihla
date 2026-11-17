@@ -11,6 +11,7 @@ import '../models/destination.dart';
 import '../services/api_service.dart';
 import '../providers/favoris_model.dart';
 import 'favoris_screen.dart';
+import 'mes_reservations_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -121,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: switch (_onglet) {
           0 => _construireExplorer(),
           1 => const FavorisScreen(),
+          2 => const MesReservationsScreen(),
           _ => const Center(child: Text('Bientôt disponible')),
         },
       ),
@@ -133,9 +135,9 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         destinations: [
           const NavigationDestination(
-            icon: Icon(Icons.explore_outlined),
-            selectedIcon: Icon(Icons.explore),
-            label: 'Explorer',
+          icon: Icon(Icons.luggage_outlined),
+          selectedIcon: Icon(Icons.luggage),
+          label: 'Voyages',
           ),
           NavigationDestination(
             icon: Badge(
