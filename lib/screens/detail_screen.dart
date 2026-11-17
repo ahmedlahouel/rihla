@@ -161,7 +161,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     Positioned(
                       top: MediaQuery.of(context).padding.top + 8,
                       right: 16,
-                      child: _boutonRond(const FavoriteButton()),
+                      child: _boutonRond(FavoriteButton(destination: d)),
                     ),
                   ],
                 ),

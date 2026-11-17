@@ -24,6 +24,5 @@ class FavorisModel extends ChangeNotifier {
     notifyListeners();
     return ajoute;
   }
-
   //      prévient les écouteurs, renvoie true si ajouté
 }
