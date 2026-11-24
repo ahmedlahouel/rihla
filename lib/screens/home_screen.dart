@@ -10,6 +10,7 @@ import '../widgets/section_title.dart';
 import '../models/destination.dart';
 import '../services/api_service.dart';
 import '../providers/favoris_model.dart';
+import '../providers/reglages_model.dart';
 import 'favoris_screen.dart';
 import 'mes_reservations_screen.dart';
 
@@ -95,9 +96,33 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         }
         final destinations = snapshot.data!;
-        return RefreshIndicator(
-          onRefresh: _recharger,
-          child: _construireAccueil(destinations),
+        final cs = Theme.of(context).colorScheme;
+        return Column(
+          children: [
+            if (ApiService.depuisCache)
+                Container(
+                width: double.infinity,
+                color: cs.tertiaryContainer,
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.wifi_off, size: 18, color: cs.onTertiaryContainer),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Hors connexion : données enregistrées',
+                      style: TextStyle(color: cs.onTertiaryContainer),
+                    ),
+                  ],
+                ),
+              ),
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: _recharger,
+                child: _construireAccueil(destinations),
+              ),
+            ),
+          ],
         );
       },
     );
@@ -116,8 +141,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final nombreFavoris = context.watch<FavorisModel>().nombre;
+    final sombre = context.watch<ReglagesModel>().sombre;
 
     return Scaffold(
+      appBar: _onglet == 0
+          ? AppBar(
+              actions: [
+                IconButton(
+                  tooltip: 'Changer de thème',
+                  onPressed: () =>
+                      context.read<ReglagesModel>().basculerTheme(),
+                  icon: Icon(sombre ? Icons.light_mode : Icons.dark_mode),
+                ),
+              ],
+            )
+          : null,
       body: SafeArea(
         child: switch (_onglet) {
           0 => _construireExplorer(),
@@ -133,11 +171,11 @@ class _HomeScreenState extends State<HomeScreen> {
             _onglet = i;
           });
         },
-        destinations: [
+                destinations: [
           const NavigationDestination(
-          icon: Icon(Icons.luggage_outlined),
-          selectedIcon: Icon(Icons.luggage),
-          label: 'Réservations1',
+            icon: Icon(Icons.explore_outlined),
+            selectedIcon: Icon(Icons.explore),
+            label: 'Explorer',
           ),
           NavigationDestination(
             icon: Badge(
@@ -153,9 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Favoris',
           ),
           const NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profil',
+            icon: Icon(Icons.luggage_outlined),
+            selectedIcon: Icon(Icons.luggage),
+            label: 'Réservations',
           ),
         ],
       ),
