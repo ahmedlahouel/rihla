@@ -10,6 +10,7 @@ import '../widgets/section_title.dart';
 import '../models/destination.dart';
 import '../services/api_service.dart';
 import '../providers/favoris_model.dart';
+import '../providers/reglages_model.dart';
 import 'favoris_screen.dart';
 import 'mes_reservations_screen.dart';
 
@@ -116,8 +117,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final nombreFavoris = context.watch<FavorisModel>().nombre;
+    final sombre = context.watch<ReglagesModel>().sombre;
 
     return Scaffold(
+      appBar: _onglet == 0
+          ? AppBar(
+              actions: [
+                IconButton(
+                  tooltip: 'Changer de thème',
+                  onPressed: () =>
+                      context.read<ReglagesModel>().basculerTheme(),
+                  icon: Icon(sombre ? Icons.light_mode : Icons.dark_mode),
+                ),
+              ],
+            )
+          : null,
       body: SafeArea(
         child: switch (_onglet) {
           0 => _construireExplorer(),
@@ -133,11 +147,11 @@ class _HomeScreenState extends State<HomeScreen> {
             _onglet = i;
           });
         },
-        destinations: [
+                destinations: [
           const NavigationDestination(
-          icon: Icon(Icons.luggage_outlined),
-          selectedIcon: Icon(Icons.luggage),
-          label: 'Réservations1',
+            icon: Icon(Icons.explore_outlined),
+            selectedIcon: Icon(Icons.explore),
+            label: 'Explorer',
           ),
           NavigationDestination(
             icon: Badge(
@@ -153,9 +167,9 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Favoris',
           ),
           const NavigationDestination(
-            icon: Icon(Icons.person_outline),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profil',
+            icon: Icon(Icons.luggage_outlined),
+            selectedIcon: Icon(Icons.luggage),
+            label: 'Réservations',
           ),
         ],
       ),
